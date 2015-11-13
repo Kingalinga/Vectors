@@ -1,10 +1,12 @@
 //declare variables
 float x, y, velX, velY, diam;
+PVector wandr;
+PVector loc;
 
 void setup() {
   //set size of canvas
   size(800, 600);
-
+loc= new PVector(width/2, height/2);
   //initialize variables
   x = width/2;
   y = height/2;
@@ -16,22 +18,24 @@ void setup() {
 void draw() {
   //draw background to cover previous frame
   background(0);
-
+wandr = PVector.random2D();
+wandr.mult(5);
   //draw ball
-  ellipse(x, y, diam, diam);
-
+  ellipse(loc.x, loc.y, diam, diam);
+loc.add(wandr);
   //add velocity to position
-  x += velX;
-  y += velY;
+ // x += velX;
+ // y += velY;
 
   //wrap the ball's position
-  if (x + diam/2 >= width) {
-    x = -diam/2;     
-  } else if (x - diam/2 <= 0) {
-    x = width + diam/2;
+  if (loc.x>= width) {
+    loc.x = 0;     
+  } else if (loc.x <= 0) {
+    loc.x = width ;
   }
-  if (y + diam/2 >= height) {
-    y = -diam/2;
-  } else if (y - diam/2 <= 0) {
-    y = height + diam/2;
+  if (loc.y  >= height) {
+    loc.y = 0;
+  } else if (loc.y  <= 0) {
+    loc.y = height;
   }
+}
